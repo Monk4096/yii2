@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\models\filters\TasksFilter;
+use app\models\tables\Comments;
 use app\models\tables\Status;
 use app\models\tables\Tasks;
 use app\models\tables\Users;
@@ -39,10 +40,37 @@ class TaskController extends Controller {
         ]);
     }
 
+
     public function actionOne ($id) {
         $model = Tasks::findOne($id);
-        return $this->render('taskOne', ['model' => $model]);
+        $dateTime = new \DateTime();
+
+        $newComment = new Comments();
+        $newComment->setAttributes([
+           'task_id' => $id,
+            'date_create' => $dateTime->format('Y-m-d H:i:s'),
+//            'creator_id' => Yii::$app->user->identity->getId()
+        ]);
+
+        if ($newComment->load(Yii::$app->request->post()) && $newComment->save()) {
+            return $this->redirect(['one', 'id' => $model->id]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+           'query'  => Comments::find()->where(['task_id' => $id])
+        ]);
+
+
+        return $this->render('taskOne', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'newComment' => $newComment
+        ]);
     }
+
+
+
+
 
     public function actionUsertask($username) {
         $login = Users::find()->select(['id'])->where('login = :login', [':login' => $username])->column();
@@ -74,7 +102,6 @@ class TaskController extends Controller {
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->trigger($model::EVENT_SEND_EMAIL);
             return $this->redirect(['one', 'id' => $model->id]);
         }
 

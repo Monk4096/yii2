@@ -3,8 +3,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 ?>
-  <p><?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?></p>
-  <p id="search" class="btn btn-primary">Search Tasks</p>
+  <p><?= Html::a(Yii::t('app', 'create_task'), ['create'], ['class' => 'btn btn-success']) ?></p>
+  <p id="search" class="btn btn-primary"><?=Yii::t('app', 'search_task')?></p>
 
 <?php  echo $this->render('_search', ['model' => $searchModel, 'usersList' => $usersList, 'statusList' => $statusList]); ?>
 

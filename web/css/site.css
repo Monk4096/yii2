@@ -135,10 +135,25 @@ a.desc:after {
 
 .tasks-search {
     border: 1px solid #ccc;
-    padding: 0 110px;
+    padding: 0 3em;
     margin: 20px 0;
     background-color: #EEE;
     border-radius: 30px;
     display: none;
+}
+.task-one-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 5px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.comment {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin: 10px 0;
+}
+.comments {
+
 }
 

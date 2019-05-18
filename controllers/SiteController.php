@@ -98,6 +98,16 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionLangRu(){
+
+        Yii::$app->language = 'ru';
+        return $this->goBack();
+    }
+    public function actionLangEn(){
+        Yii::$app->language = 'en';
+        return $this->goHome();
+    }
+
     /**
      * Displays contact page.
      *

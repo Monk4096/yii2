@@ -68,7 +68,6 @@ class AdminTasksController extends Controller
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->trigger($model::EVENT_SEND_EMAIL);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

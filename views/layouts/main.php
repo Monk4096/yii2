@@ -37,23 +37,29 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
+
+
+    echo Html::a('Rus', ['site/lang-ru']);
+    echo Html::a('En', ['site/lang-en']);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Tasks', 'url' => ['/task/']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => Yii::t('app', 'header_home'), 'url' => ['/site/index']],
+            ['label' => Yii::t('app', 'header_tasks'), 'url' => ['/task/']],
+            ['label' => Yii::t('app', 'header_about'), 'url' => ['/site/about']],
+            ['label' => Yii::t('app', 'header_contact'), 'url' => ['/site/contact']],
 
             Yii::$app->user->isGuest ? ('')
                 : (['label' => 'Мои задачи', 'url' => ['/task/usertask', 'username' => Yii::$app->user->identity->username]]),
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Yii::t('app', 'header_login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    Yii::t('app', 'header_logout').'(' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -65,6 +71,8 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
+
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -82,6 +90,7 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>
